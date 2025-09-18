@@ -1,0 +1,24 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.sap-header {
+  background-color: #003366;
+  color: white;
+  padding: 10px 20px;
+}
+
+.sap-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+.app-list {
+  margin-top: 30px;
+}

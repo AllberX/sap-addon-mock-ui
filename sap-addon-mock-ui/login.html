@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <link href="../style.css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Login - AllberX Add ON</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+    <script
+      id="sap-ui-bootstrap"
+      src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+      data-sap-ui-theme="sap_horizon"
+      data-sap-ui-preload="false"
+      data-sap-ui-libs="sap.m"
+      data-sap-ui-xx-bindingsyntax="complex"
+      data-sap-ui-resourceroots='{
+            "main":"../../",
+            "xnet": "../",
+            "applications": "../../../applications"
+      }'
+    ></script>
+    <script src="../string.js"></script>
+    <script src="../helpers.js"></script>
+    <script src="init.js"></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #121212;
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .login-box {
+        background: #fff;
+        padding: 30px 40px;
+        border-radius: 8px;
+        width: 320px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        text-align: center;
+      }
+
+      .login-box h2 {
+        color: orange;
+        margin-bottom: 24px;
+        font-weight: 700;
+        font-size: 1.8rem;
+      }
+
+      .login-box input[type="text"],
+      .login-box input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0 16px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+      }
+
+      .login-box button {
+        background-color: orange;
+        color: #fff;
+        border: none;
+        padding: 12px;
+        width: 100%;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+        font-weight: 700;
+      }
+
+      .login-box button:hover {
+        background-color: darkorange;
+      }
+
+      .error-message {
+        color: red;
+        margin-bottom: 12px;
+        display: none;
+      }
+
+      .success-message {
+        color: green;
+        margin-bottom: 12px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="sapUiBody" id="content">
+    <div class="login-box">
+      <h2>AllberX Add ON</h2>
+      <div id="error" class="error-message"></div>
+      <div id="success" class="success-message"></div>
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Usuário" required />
+        <input
+          type="password"
+          id="password"
+          placeholder="Senha"
+          required
+          autocomplete="off"
+        />
+        <button type="submit">Entrar</button>
+      </form>
+    </div>
+
+    <script>
+      // Usuários de teste hardcoded
+      const users = [
+        { username: "admin", password: "123456" },
+        { username: "user", password: "senha" },
+      ];
+
+      const loginForm = document.getElementById("loginForm");
+      const errorDiv = document.getElementById("error");
+      const successDiv = document.getElementById("success");
+
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        errorDiv.style.display = "none";
+        successDiv.style.display = "none";
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+
+        const userFound = users.find(
+          (user) => user.username === username && user.password === password
+        );
+
+        if (userFound) {
+          successDiv.textContent = `Bem-vindo, ${username}! Login realizado com sucesso.`;
+          successDiv.style.display = "block";
+          errorDiv.style.display = "none";
+
+          // Aqui você pode redirecionar para outra página, exemplo:
+          // window.location.href = "dashboard.html";
+        } else {
+          errorDiv.textContent = "Usuário ou senha inválidos. Tente novamente.";
+          errorDiv.style.display = "block";
+          successDiv.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>

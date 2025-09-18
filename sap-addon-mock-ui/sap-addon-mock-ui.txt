@@ -1,0 +1,127 @@
+SAP B1 Add-On UI Mock – Cadastro de Aplicações
+Este projeto simula uma interface de Add-on para SAP Business One, permitindo o cadastro fictício de aplicações internas.  
+
+
+/addon-sap-b1
+│
+├── favicon.ico                    # Seu ícone personalizado
+├── index.html                    # Página principal (cadastro + lista)
+├── login.html                    # Tela de login (separada)
+├── style.css                    # Estilos customizados (separado do HTML)
+├── script.js                    # JavaScript principal (separado do HTML)
+├── README.md                    # Documentação do projeto
+├── LICENSE                      # Licença do projeto (ex: MIT)
+└── assets/                      # Pasta para imagens, ícones, gifs etc
+    └── loading.gif
+
+-----------
+
+
+Funcionalidades
+
+- Formulário com campos: Código, Descrição, Tipo e Status (ativo/inativo)  
+- Validações básicas nos campos obrigatórios  
+- Simulação de salvamento usando `localStorage` do navegador  
+- Listagem das aplicações cadastradas em tabela dinâmica  
+- Botões para salvar, limpar formulário e simular saída 
+ 
+---
+
+Tecnologias usadas
+
+- HTML5  
+- CSS3 (com Bootstrap 5 para estilo rápido e responsivo)  
+- JavaScript (vanilla) para lógica e manipulação do DOM  
+- LocalStorage para persistência simulada de dados  
+
+---
+
+Como usar
+
+1. Clone este repositório  
+2. Abra o arquivo `index.html` em seu navegador preferido  
+3. Preencha o formulário e clique em "Salvar" para adicionar uma aplicação  
+4. As aplicações cadastradas aparecem na tabela abaixo do formulário  
+5. Use o botão "Limpar" para limpar o formulário  
+6. O botão "Sair" simula o fechamento da tela (pode ser personalizado)  
+ 
+--
+
+Autor
+Sylvio Alberto - [https://github.com/AllberX]
+
+---
+
+Licença
+Este projeto está licenciado sob a MIT License - veja o arquivo LICENSE para detalhes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sap-addon-mock-ui/
+│
+├── index.html
+├── style.css
+├── script.js
+├── /assets
+│   └── (ícones)
+├── README.md
+
+--------
+
+sapb1-addon-ui/
+├── index.html          ← Tela completa com form + listagem + JS
+├── style.css           ← (opcional: separar estilos)
+├── README.md           ← Explicando o projeto
+
+----------------
+
+
+
+
+🔧 Projeto: "Tela de Cadastro de Aplicação" (Mock de AddOn SAP B1)
+🛠️ Tecnologias:
+
+HTML
+
+CSS
+
+JavaScript (simples)
+
+Bootstrap (para visual mais "SAP-like")
+
+📋 Funcionalidade simulada:
+
+Formulário com campos comuns de uma tela de AddOn:
+
+Código da Aplicação
+
+Descrição da Aplicação
+
+Status (Ativo/Inativo)
+
+Botões de ações: Salvar, Limpar, Simular envio
