@@ -5,65 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Add-On AllberX | Cadastro de Fornecedores</title>
 
-  <!-- Favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-
-  <!-- Bootstrap 5 CDN -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-
-  <!-- Estilos personalizados -->
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
-
-    .sap-header {
-      background-color: #003366;
-      color: white;
-      padding: 10px 20px;
-    }
-
-    .sap-card {
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    .form-label {
-      font-weight: 600;
-    }
-
-    .app-list {
-      margin-top: 30px;
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="CódigoModularizado_SóCss.css" />
 </head>
 <body>
   <div class="sap-header">
-    <h4>SAP B1 Add-On | Cadastro de Fornecedores AllberX</h4>
+    <div class="container">
+      <h4 class="mb-0">SAP B1 Add-On | Cadastro de Fornecedores AllberX</h4>
+    </div>
   </div>
 
   <div class="container mt-4">
     <div class="sap-card">
-      <form id="fornecedorForm">
+      <form id="fornecedorForm" novalidate>
         <div class="mb-3">
           <label for="codigo" class="form-label">Código do Fornecedor</label>
-          <input type="text" class="form-control" id="codigo" required />
+          <input type="text" class="form-control" id="codigo" name="codigo" required maxlength="20" autocomplete="off" placeholder="Ex.: F-001" />
         </div>
 
         <div class="mb-3">
           <label for="nome" class="form-label">Nome do Fornecedor</label>
-          <input type="text" class="form-control" id="nome" required />
-        </div>
+          <input type="text" class="form-control" id="nome" name="nome" required maxlength="100" autocomplete="organization" placeholder="Informe o nome do fornecedor" />        </div>
 
         <div class="mb-3">
           <label for="tipo" class="form-label">Tipo de Fornecedor</label>
-          <select class="form-select" id="tipo" required>
+          <select class="form-select" id="tipo" name="tipo" required>
             <option value="">Selecione...</option>
             <option value="Local">Local</option>
             <option value="Nacional">Nacional</option>
@@ -72,87 +40,43 @@
         </div>
 
         <div class="form-check form-switch mb-4">
-          <input class="form-check-input" type="checkbox" id="status" />
+          <input class="form-check-input" type="checkbox" id="status" name="status" />
           <label class="form-check-label" for="status">Ativo</label>
         </div>
 
-        <button type="submit" class="btn btn-primary">Salvar</button>
-        <button type="reset" class="btn btn-secondary ms-2">Limpar</button>
-        <button type="button" class="btn btn-danger ms-2" onclick="simularSaida()">Sair</button>
+        <div class="d-flex flex-wrap gap-2">
+          <button type="submit" class="btn btn-primary">Salvar</button>
+          <button type="reset" class="btn btn-secondary">Limpar</button>
+          <button type="button" class="btn btn-outline-danger" onclick="simularSaida()">Sair</button>
+        </div>
+
+        <div id="formFeedback" class="alert mt-3 d-none" role="alert" aria-live="polite"></div>
       </form>
     </div>
 
-    <!-- Lista de fornecedores -->
     <div class="sap-card app-list">
-      <h5>Fornecedores Cadastrados</h5>
-      <table class="table table-bordered table-striped mt-3" id="fornecedorTable">
+      <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <h5 class="mb-0">Fornecedores Cadastrados</h5>
+        <div class="d-flex align-items-center gap-2">
+          <span class="text-muted small" id="countFornecedores">0 itens</span>
+          <button type="button" class="btn btn-outline-danger btn-sm" id="deleteSelectedBtn">Deletar</button>
+        </div>
+      </div>
+      <table class="table table-bordered table-striped align-middle mb-0" id="fornecedorTable">
         <thead>
           <tr>
-            <th>Código</th>
-            <th>Nome</th>
-            <th>Tipo</th>
-            <th>Status</th>
+            <th scope="col" class="text-center">Sel.</th>
+            <th scope="col">Código</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Status</th>
           </tr>
         </thead>
-        <tbody>
-          <!-- Itens preenchidos dinamicamente -->
-        </tbody>
+        <tbody></tbody>
       </table>
     </div>
   </div>
 
-  <!-- Script principal -->
-  <script>
-    const form = document.getElementById("fornecedorForm");
-    const tableBody = document.querySelector("#fornecedorTable tbody");
-
-    document.addEventListener("DOMContentLoaded", loadFornecedores);
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const codigo = document.getElementById("codigo").value.trim();
-      const nome = document.getElementById("nome").value.trim();
-      const tipo = document.getElementById("tipo").value;
-      const status = document.getElementById("status").checked ? "Ativo" : "Inativo";
-
-      if (!codigo || !nome || !tipo) {
-        alert("Por favor, preencha todos os campos obrigatórios.");
-        return;
-      }
-
-      const newFornecedor = { codigo, nome, tipo, status };
-      const fornecedores = JSON.parse(localStorage.getItem("fornecedores")) || [];
-
-      fornecedores.push(newFornecedor);
-      localStorage.setItem("fornecedores", JSON.stringify(fornecedores));
-
-      alert("Fornecedor salvo com sucesso!");
-      form.reset();
-      loadFornecedores();
-    });
-
-    function loadFornecedores() {
-      const fornecedores = JSON.parse(localStorage.getItem("fornecedores")) || [];
-      tableBody.innerHTML = "";
-
-      fornecedores.forEach((fornecedor) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${fornecedor.codigo}</td>
-          <td>${fornecedor.nome}</td>
-          <td>${fornecedor.tipo}</td>
-          <td>${fornecedor.status}</td>
-        `;
-        tableBody.appendChild(row);
-      });
-    }
-
-    function simularSaida() {
-      if (confirm("Deseja realmente sair?")) {
-        alert("Simulação de saída realizada!");
-      }
-    }
-  </script>
+  <script src="CódigoModularizado_SóJavaScript.js"></script>
 </body>
 </html>

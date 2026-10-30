@@ -1,24 +1,77 @@
+:root {
+  --sap-blue: #003366;
+  --sap-blue-dark: #00264d;
+  --sap-border: #dfe3e8;
+}
+
 body {
-  background-color: #f8f9fa;
+  margin: 0;
+  background-color: #f4f6f9;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #212529;
 }
 
 .sap-header {
-  background-color: #003366;
-  color: white;
-  padding: 10px 20px;
+  background: linear-gradient(90deg, var(--sap-blue), var(--sap-blue-dark));
+  color: #ffffff;
+  padding: 16px 0;
 }
 
 .sap-card {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--sap-border);
 }
 
 .form-label {
   font-weight: 600;
+  color: var(--sap-blue-dark);
 }
 
 .app-list {
-  margin-top: 30px;
+  margin-top: 24px;
+}
+
+.table thead {
+  background-color: #f8f9fa;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.35em 0.7em;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.status-badge.active {
+  background-color: #e8f7ee;
+  color: #198754;
+}
+
+.status-badge.inactive {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+}
+
+.empty-state {
+  text-align: center;
+  color: #6c757d;
+}
+
+.table .form-check-input {
+  width: 1.1rem;
+  height: 1.1rem;
+  cursor: pointer;
+}
+
+.alert {
+  border-radius: 8px;
+}
+
+.btn {
+  border-radius: 6px;
 }
