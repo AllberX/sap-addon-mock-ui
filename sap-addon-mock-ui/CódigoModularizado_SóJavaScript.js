@@ -3,6 +3,7 @@ const tableBody = document.querySelector("#fornecedorTable tbody");
 const feedback = document.getElementById("formFeedback");
 const countFornecedores = document.getElementById("countFornecedores");
 const deleteSelectedBtn = document.getElementById("deleteSelectedBtn");
+const nomeInput = document.getElementById("nome");
 
 function getFornecedores() {
   try {
@@ -63,9 +64,16 @@ form.addEventListener("submit", function (e) {
   clearFeedback();
 
   const codigo = document.getElementById("codigo").value.trim();
-  const nome = document.getElementById("nome").value.trim();
+  const nome = nomeInput.value.trim();
   const tipo = document.getElementById("tipo").value;
   const status = document.getElementById("status").checked;
+
+  if (!nome) {
+    nomeInput.classList.add("is-invalid");
+    showFeedback("Informe o nome do fornecedor.", "warning");
+    nomeInput.focus();
+    return;
+  }
 
   if (!codigo || !nome || !tipo) {
     showFeedback("Preencha todos os campos obrigatórios.", "warning");
@@ -97,8 +105,15 @@ form.addEventListener("submit", function (e) {
   loadFornecedores();
 });
 
+nomeInput.addEventListener("input", function () {
+  if (nomeInput.value.trim()) {
+    nomeInput.classList.remove("is-invalid");
+  }
+});
+
 form.addEventListener("reset", function () {
   clearFeedback();
+  nomeInput.classList.remove("is-invalid");
   document.getElementById("codigo").focus();
 });
 
